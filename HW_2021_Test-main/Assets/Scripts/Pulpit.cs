@@ -8,6 +8,7 @@ public class Pulpit : MonoBehaviour
     public float lifeSpan = 5f;
     public TextMeshPro textMeshPro;
     public Animator animator;
+    public Material material;
 
     bool triggered;
     private void OnEnable()
@@ -23,14 +24,14 @@ public class Pulpit : MonoBehaviour
     public IEnumerator ActivateTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        lifeSpan = Random.Range(4f, 5f);
+        lifeSpan = Random.Range(2f, 4f);
         triggered = false;
         while (lifeSpan > 0)
         {
             yield return new WaitForSeconds(Time.deltaTime);
             lifeSpan -= Time.deltaTime;
             textMeshPro.text = lifeSpan.ToString("0.00");
-            if (lifeSpan < 2 && !triggered)
+            if (lifeSpan < 1 && !triggered)
             {
                 GameManager.instance.SpawnPulpitRandom();
                 triggered = true;

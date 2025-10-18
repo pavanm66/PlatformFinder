@@ -173,6 +173,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1516396463}
   m_maskType: 0
+  _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
 --- !u!1 &5697480137349438967
@@ -306,4 +307,4 @@ MonoBehaviour:
   lifeSpan: 5
   textMeshPro: {fileID: 1516396461}
   animator: {fileID: 2062603100}
-  triggered: 0
+  material: {fileID: 2100000, guid: 24c20db99b84809409887fbe9600f535, type: 2}

@@ -19,7 +19,8 @@ public class Doofus : MonoBehaviour
             return;
         }
         newPos = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        myBody.MovePosition(myBody.position + newPos * Time.fixedDeltaTime * speed);
+        //myBody.MovePosition(myBody.position + newPos * Time.fixedDeltaTime * speed);
+        myBody.velocity = new Vector3(newPos.x * speed, myBody.velocity.y, newPos.z * speed);   
 
         isOnGround = Physics.Raycast(transform.position, Vector3.down * 1f, 1f, layerMask);
         if (!isOnGround)
