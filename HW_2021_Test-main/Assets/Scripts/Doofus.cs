@@ -7,11 +7,20 @@ public class Doofus : MonoBehaviour
     public Rigidbody myBody;
     public float speed = 8f;
     public LayerMask layerMask;
+
+   
+    //public GameObject currentParticleEffect;
+
+
     #region Private Variables
     Vector3 newPos;
     bool isOnGround;
     float fallTime = 0;
+   
+
     #endregion
+
+
     private void FixedUpdate()
     {
         if (GameManager.instance.IsGameOver)

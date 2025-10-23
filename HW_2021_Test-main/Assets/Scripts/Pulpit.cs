@@ -10,6 +10,8 @@ public class Pulpit : MonoBehaviour
     public Animator animator;
     public Material material;
 
+    [SerializeField] List<WallScript> walls = new List<WallScript>(4);
+
     bool triggered;
     private void OnEnable()
     {
@@ -41,6 +43,5 @@ public class Pulpit : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         this.gameObject.SetActive(false);
     }
-    
-
+   
 }
