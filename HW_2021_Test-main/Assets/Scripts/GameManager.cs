@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Doofus doofus;
     public GameObject gameOverPanel;
     public TextMeshProUGUI scoreText;
+    public AudioManager audioManager;
     #endregion
 
     #region private Variables
@@ -23,8 +24,15 @@ public class GameManager : MonoBehaviour
     bool isgameOver;
     Pulpit latestPulpit, oldPulpit;
     List<Pulpit> pulpitsList;
-   [SerializeField] List<Vector3> usedPositionsList;
+    [SerializeField] List<Vector3> usedPositionsList;
     int score;
+
+    [SerializeField] private Image musicSprite;
+    [SerializeField] private Sprite musicOn;
+    [SerializeField] private Sprite musicOff;
+    [SerializeField] private Image soundSprite;
+    [SerializeField] private Sprite soundOn;
+    [SerializeField] private Sprite soundOff;
     #endregion 
 
     #region Getter Setters
@@ -48,7 +56,30 @@ public class GameManager : MonoBehaviour
             Time.timeScale = isgameOver ? 0 : 1f;
         }
     }
+    bool isMusicOn;
+    public bool IsMusicOn
+    {
+        get => isMusicOn;
+        set
+        {
+            isMusicOn = value;
+            PlayerPrefs.SetInt("Music", isSoundOn ? 1 : 0);
+            musicSprite.sprite = IsMusicOn ? musicOn : musicOff;
+        }
+    }
+    bool isSoundOn;
+    
 
+    public bool IsSoundOn
+    {
+        get => isSoundOn;
+        set
+        {
+            isSoundOn = value;
+            PlayerPrefs.SetInt("Sound", isSoundOn ? 1 : 0);
+            soundSprite.sprite = IsSoundOn ? soundOn : soundOff;
+        }
+    }
 
     #endregion
 
@@ -89,9 +120,16 @@ public class GameManager : MonoBehaviour
         doofus.transform.rotation = Quaternion.identity;
         doofus.myBody.WakeUp();
         IsGameOver = false;
+        soundSprite.sprite = IsSoundOn ? soundOn : soundOff;
+        musicSprite.sprite = IsMusicOn ? musicOn : musicOff;
+
+        //SetMusicOn();
+        //SetSoundOn();
+
     }
     public void GameOver()
     {
+        audioManager.PlayFailure();
         IsGameOver = true;
         foreach (var item in pulpitsList)
         {
@@ -119,6 +157,28 @@ public class GameManager : MonoBehaviour
 
         latestPulpit.transform.position = GetUnusedPosition();
         latestPulpit.gameObject.SetActive(true);
+    }
+
+
+    //for audio settings
+    public void SetMusicOn()
+    {
+        print(PlayerPrefs.GetInt("Music", 1) + " in music on");
+        IsMusicOn =!IsMusicOn;
+        //musicSprite.sprite = IsMusicOn ? musicOn : musicOff;
+        if (IsMusicOn)
+        {
+            audioManager.bgAudio.Play();
+        }
+        else
+        {
+            audioManager.bgAudio.Pause();
+        }
+    }
+    public void SetSoundOn()
+    {
+        IsSoundOn = !IsSoundOn;
+        //soundSprite.sprite = IsSoundOn ? soundOn : soundOff;
     }
     #endregion
 

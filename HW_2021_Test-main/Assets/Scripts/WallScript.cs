@@ -28,7 +28,7 @@ public class WallScript : MonoBehaviour
         {
             this.isTriggered = true;
             //GetPooledParticleEffect();
-
+            GameManager.instance.audioManager.PlaySuccess();
             particleEffect.transform.localPosition = other.transform.localPosition;
             particleEffect.SetActive(true);
             particleEffect.GetComponent<ParticleSystem>().Play();
